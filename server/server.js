@@ -1,10 +1,12 @@
 require('./config/config')
 const express = require('express')
+const mongoose = require('mongoose');
 const app = express()
 const bodyParser = require('body-parser')
 
  
 //  middlewares
+
 // Configurar cabeceras y cors
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -18,30 +20,16 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+// importamos rutas de usuario 
+app.use(require('./routes/usuarios'))
 
 
 
 
-//  routes
-app.get('/',(req,res)=>{
-    res.json('Hello world')
-})
+mongoose.connect(process.env.URLDB,{useCreateIndex:true, useNewUrlParser: true,useUnifiedTopology:true },(err,res)=>{
+    if(err) throw err;
 
-app.get('/usuarios',(req,res)=>{
-    res.json('usuarios get')
-})
-
-
-app.post('/usuarios',(req,res)=>{    
-    let {body} = req
-    body.nombre == undefined ? ( res.status(400).json({error:'datos incompletos'}) ) :( res.json({data:body}) )
-})
-
-app.put('/usuarios/:id',(req,res)=>{
-    let id = req.params.id
-    res.json({
-        id
-    })
+    console.log("base de datos conectada");
 })
 
 
