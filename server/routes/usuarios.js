@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 // para modificar solo valores que yo quiero del modelo usuario 
 const _ = require('underscore')
 // verificar token en las rutas  de usuarios
-const { verificarTokn }= require('../Autentication/Autentication')
+const { verificarTokn, verificarRol }= require('../Autentication/Autentication')
 
 //  routes
 app.get('/',(req,res)=>{
@@ -68,7 +68,7 @@ app.get('/usuarios/', verificarTokn ,(req,res)=>{
 // ruta donde creamos un usuario 
 
 
-app.post('/usuarios',verificarTokn,(req,res)=>{    
+app.post('/usuarios',[verificarTokn,verificarRol],(req,res)=>{    
     let { body } = req
     console.log(body);
 
@@ -103,7 +103,7 @@ app.post('/usuarios',verificarTokn,(req,res)=>{
 // ruta para actualizar un usuario por su id 
 
 
-app.put('/usuarios/:id',verificarTokn,(req,res)=>{
+app.put('/usuarios/:id',[verificarTokn,verificarRol],(req,res)=>{
     let id = req.params.id
     let body = _.pick(req.body,['nombre', 'email','img','role','estado'])
 
@@ -135,7 +135,7 @@ app.put('/usuarios/:id',verificarTokn,(req,res)=>{
 
 // ruta para eliminar un usuario
 
-app.delete('/usuarios/:id',verificarTokn,(req,res)=>{
+app.delete('/usuarios/:id',[verificarTokn,verificarRol],(req,res)=>{
     let id = req.params.id
 
     console.log("usuario req en delete",req.usuario);

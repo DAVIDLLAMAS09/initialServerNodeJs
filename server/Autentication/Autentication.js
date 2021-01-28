@@ -27,7 +27,26 @@ let verificarTokn = (req, res, next)=>{
         })
   }
 
+//   verificar rol de usuario
+
+let verificarRol = (req,res,next)=>{
+    let rol  = req.usuario.role
+
+    console.log(rol);
+    if(rol !== "ADMIN_ROLE"){
+       return res.status(401).json({
+            success:false,
+            message:"Los usuarios 'NO ADMIN' no tienen permitido crear, modificar, eliminar a otros usuarios"
+        })
+    }
+
+    next();
+
+
+}
+
 
   module.exports = {
-      verificarTokn
+      verificarTokn,
+      verificarRol
   }
