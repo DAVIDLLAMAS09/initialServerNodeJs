@@ -68,7 +68,7 @@ app.get('/usuarios/', verificarTokn ,(req,res)=>{
 // ruta donde creamos un usuario 
 
 
-app.post('/usuarios',(req,res)=>{    
+app.post('/usuarios',verificarTokn,(req,res)=>{    
     let { body } = req
     console.log(body);
 
@@ -103,7 +103,7 @@ app.post('/usuarios',(req,res)=>{
 // ruta para actualizar un usuario por su id 
 
 
-app.put('/usuarios/:id',(req,res)=>{
+app.put('/usuarios/:id',verificarTokn,(req,res)=>{
     let id = req.params.id
     let body = _.pick(req.body,['nombre', 'email','img','role','estado'])
 
@@ -135,9 +135,17 @@ app.put('/usuarios/:id',(req,res)=>{
 
 // ruta para eliminar un usuario
 
-app.delete('/usuarios/:id',(req,res)=>{
+app.delete('/usuarios/:id',verificarTokn,(req,res)=>{
     let id = req.params.id
 
+    console.log("usuario req en delete",req.usuario);
+// no se puede borrar a si mismo verificando el id del jsonwebtoken y el id de la sesion
+    if(req.usuario._id === id){
+        return res.status(400).json({
+            success:false,
+            message:"no puedes borarte a ti mismo"
+        })
+    }
     // cambia su estado a false de un usuario
 
     Usuario.findByIdAndUpdate(id,{$set:{estado:false}},{new:true},(err,result)=>{

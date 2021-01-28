@@ -18,8 +18,11 @@ let verificarTokn = (req, res, next)=>{
                 })
             }
 
+            // console.log("decoded",decoded.usuario);
+
             // usuario viene del login 
             req.usuario = decoded.usuario
+            // console.log("usuario req:",req.usuario);
             next();
         })
   }
