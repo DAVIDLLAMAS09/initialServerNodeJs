@@ -6,6 +6,8 @@ const Usuario = require('../models/usuarios')
 const bcrypt = require('bcrypt');
 // para modificar solo valores que yo quiero del modelo usuario 
 const _ = require('underscore')
+// verificar token en las rutas  de usuarios
+const { verificarTokn }= require('../Autentication/Autentication')
 
 //  routes
 app.get('/',(req,res)=>{
@@ -14,7 +16,7 @@ app.get('/',(req,res)=>{
 
 // ruta que obtiene a todos los usuarios o buscar por nombre
 
-app.get('/usuarios/',(req,res)=>{
+app.get('/usuarios/', verificarTokn ,(req,res)=>{
 
     let query = req.query.nombre
 

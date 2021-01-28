@@ -20,8 +20,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-// importamos rutas de usuario 
+// importamos rutas del proyecto     
 app.use(require('./routes/usuarios'))
+app.use(require('./routes/login'))
 
 
 

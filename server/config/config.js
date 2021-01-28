@@ -3,6 +3,10 @@
  process.env.PORT = process.env.PORT || 3001
  process.env.NODE_ENV =  process.env.NODE_ENV || 'dev'
 
+//  jwt
+ process.env.SEMILLA = process.env.SEED || "este-es-el-seed-de-desarrollo"
+ process.env.CADUCIDAD_TOKEN = process.env.CADUCIDAD || 60 * 60 * 24 * 30
+
  let urlDB;
 
  if( process.env.NODE_ENV === 'dev'){
