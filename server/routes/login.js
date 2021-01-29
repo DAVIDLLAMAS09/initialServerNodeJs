@@ -40,11 +40,24 @@ app.post('/login',(req,res)=>{
            usuario:Usuariodb
        },process.env.SEMILLA , {expiresIn: process.env.CADUCIDAD_TOKEN })
 
-       res.json({
-           success:true,
-           Usuariodb,
-           token
-       })
+    //    guardar token en la bd
+        Usuariodb.token = token
+
+        Usuariodb.save((err,result)=>{
+            if(err){
+                return res.status(400).json({
+                    success:false,
+                    err
+                })
+            }
+
+            res.json({
+                success:true,
+                Usuariodb,
+                token
+            })
+        })
+
         
 
     })

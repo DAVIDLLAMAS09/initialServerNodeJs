@@ -16,7 +16,8 @@ let usuariosSchema = new Schema({
     img:{type:String,required:false},
     role:{type:String,default:'USER_ROLE',enum:validateRoles},
     estado:{type:Boolean,default:true},
-    google:{type:Boolean,default:false}
+    google:{type:Boolean,default:false},
+    token:{type:String}
 },{
     collection: 'users'
 });
@@ -27,6 +28,8 @@ usuariosSchema.methods.toJSON = function(){
     let userObject = user.toObject();
     delete userObject.password;
     delete userObject.__v
+    // ocultar el token en todas las peticiones por seguridad
+    delete userObject.token
 
     return userObject;
 }

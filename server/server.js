@@ -23,6 +23,7 @@ app.use(bodyParser.json())
 // importamos rutas del proyecto     
 app.use(require('./routes/usuarios'))
 app.use(require('./routes/login'))
+app.use(require('./routes/verifyToken'))
 
 
 
