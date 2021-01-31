@@ -30,9 +30,9 @@ let verificarTokn = (req, res, next)=>{
 //   verificar rol de usuario
 
 let verificarRol = (req,res,next)=>{
+    // JSON WEB TOKEN EN SIGN MANDAMOS UN OBJ CON EL USUARIO QUE PUEDE SER UTILIZADA PARA HACER VALIDACIONES ANTES DE CONSULTAR EL ENDPOINT
     let rol  = req.usuario.role
 
-    console.log(rol);
     if(rol !== "ADMIN_ROLE"){
        return res.status(401).json({
             success:false,
