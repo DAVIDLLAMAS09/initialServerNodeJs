@@ -40,7 +40,7 @@ app.get('/categorias/:id',verificarTokn,(req,res)=>{
             })
         }
 
-        Categoria.find().populate('usuario').exec()
+        // Categoria.find().populate('usuario').exec()
         res.json({
             success:true,
             categoria
@@ -56,6 +56,7 @@ app.post('/categorias/',verificarTokn,(req,res)=>{
     let idUsuario = req.usuario._id
 
     let categoria = new Categoria({
+        nombre:req.body.nombre,
         description:req.body.description,
         usuario:idUsuario
     })
